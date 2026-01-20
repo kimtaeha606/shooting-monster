@@ -44,20 +44,25 @@ public sealed class MonsterSpawner : MonoBehaviour
         director.currentMoveSpeed = director.ComputeSpeed(director.difficulty);
     }
 
-    private void Update()
+    private void Awake()
     {
-        if (!autoSpawn) return;
-        if (monsterDef == null) return;
-
-        float interval = 1f;
-        if (director != null)
-            interval = Mathf.Max(0.05f,director.currentSpawnInterval);
-        if(Time.time < nextSpawnTime) return;
-
         Spawn(monsterDef);
-
-        nextSpawnTime = Time.time + interval;
     }
+
+    // private void Update()
+    // {
+    //     if (!autoSpawn) return;
+    //     if (monsterDef == null) return;
+
+    //     float interval = 1f;
+    //     if (director != null)
+    //         interval = Mathf.Max(0.05f,director.currentSpawnInterval);
+    //     if(Time.time < nextSpawnTime) return;
+
+    //     Spawn(monsterDef);
+
+    //     nextSpawnTime = Time.time + interval;
+    // }
 
     public GameObject Spawn(MonsterDef def)
     {
