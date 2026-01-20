@@ -6,6 +6,6 @@ public class MonsterInitializer : MonoBehaviour
 
     public void Initialize(MonsterDef def)
     {
-        stats.InitFromDef(def);
+        //stats.InitFromDef(def);
     }
 }
