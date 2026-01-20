@@ -373,6 +373,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1115027492
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1115027493}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1115027493
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115027492}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -42.35735, y: -0.1184, z: 39.79519}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1229151149
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,7 +433,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c94fc71e4f0c547b4287b3f5618a9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  monsterSpawner: {fileID: 1873813085}
 --- !u!4 &1229151151
 Transform:
   m_ObjectHideFlags: 0
@@ -581,6 +611,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7253983127304857660, guid: 761cdc9e4e883334cbdcea062d0befa7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8746678193447392789, guid: 761cdc9e4e883334cbdcea062d0befa7,
         type: 3}
@@ -772,6 +807,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1643892134
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1643892136}
+  - component: {fileID: 1643892135}
+  m_Layer: 0
+  m_Name: DifficultyDirector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1643892135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643892134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe110f0e3e2a67842930b3a3a21be764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DifficultyDirector
+  difficultyRate: 0.1
+  baseSpawnInterval: 2
+  spawnIntervalDecreaseK: 0.02
+  minSpawnInterval: 0.35
+  speedIncreaseK: 1
+  elapsedTime: 0
+  difficulty: 0
+  currentSpawnInterval: 0
+  currentMoveSpeed: 0
+--- !u!4 &1643892136
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643892134}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -43.02615, y: -0.1184, z: 29.10514}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1873813084
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,9 +889,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83c3deeb39aeefe44b8ea8f0b4135e15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterSpawner
-  monsterPrefab: {fileID: 1885992278}
-  spawnPoints: []
+  spawnPoints:
+  - {fileID: 1115027493}
   spawnRoot: {fileID: 0}
+  director: {fileID: 1643892135}
+  monsterDef: {fileID: 11400000, guid: 2aa1fa4e7735b5745a934224e5f5b276, type: 2}
+  autoSpawn: 1
 --- !u!4 &1873813086
 Transform:
   m_ObjectHideFlags: 0
@@ -1121,3 +1212,5 @@ SceneRoots:
   - {fileID: 1232320684}
   - {fileID: 1550021598}
   - {fileID: 1312753923}
+  - {fileID: 1643892136}
+  - {fileID: 1115027493}

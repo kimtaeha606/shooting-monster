@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterDef
   monsterId: ddong
   displayName: "\"\uB625\""
-  prefab: {fileID: 0}
+  prefab: {fileID: 2748248562681304347, guid: 6df65ad7baf4de4459f07cb32cb379c9, type: 3}
   maxHp: 100
   moveSpeed: 7
   damage: 20
