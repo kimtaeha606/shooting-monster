@@ -25,33 +25,52 @@ public sealed class MonsterAI : MonoBehaviour
     [SerializeField] private Vector3 moveDir = Vector3.zero;
     [SerializeField] private bool hasTarget = false;
     [SerializeField] private bool isMoving = false;
+    private bool isAttacking=false;
+
     
     private void Update()
     {
         if (!AcquireTarget())
         {
             moveDir = Vector3.zero;
+            SetMoving(false);
             return;
         }
 
-        bool shouldStop = CheckStopDistance();
-        if (shouldStop)
+        bool inRange = CheckStopDistance();
+
+        // 이동 bool은 매 프레임 갱신 (권장) 
+        animator.SetBool("InRange", inRange);
+
+        // 공격 중이면 이동/공격 재시작하지 않게 막기
+        if (isAttacking)
         {
             moveDir = Vector3.zero;
             SetMoving(false);
+            return;
         }
-        else
+
+        // 사거리 안 + 현재 공격 중 아님 => 공격 1회 발동
+        if (inRange)
         {
-           UpdateMoveDirection();
-           SetMoving(moveDir.sqrMagnitude > 0.0001f); 
+            moveDir = Vector3.zero;
+            SetMoving(false);
+
+            isAttacking = true;
+            animator.SetTrigger("Attack");
+            return;
         }
 
-
+        // 사거리 밖 => 추적
+        UpdateMoveDirection();
+        SetMoving(moveDir.sqrMagnitude > 0.0001f);
     }
+
     
     private void FixedUpdate()
     {
-        //ApplyPhysicsMovement(moveDir);
+        float moveSpeed = def != null ? def.moveSpeed : 0f;
+        ApplyPhysicsMovement(moveDir, moveSpeed);
     }
 
    
@@ -125,4 +144,7 @@ public sealed class MonsterAI : MonoBehaviour
         if (animator && !string.IsNullOrEmpty(isMovingParam))
             animator.SetBool(isMovingParam, isMoving); 
     }
+
+    public void SetAttacking(bool v) => isAttacking = v;
+
 }
