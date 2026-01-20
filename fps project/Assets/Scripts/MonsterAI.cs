@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using Unity.Android.Gradle;
 using UnityEngine;
 
 public sealed class MonsterAI : MonoBehaviour
@@ -12,9 +13,45 @@ public sealed class MonsterAI : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;  // TODO: 적절한 기본값 튜닝
     [SerializeField] private float stopDistance = 1.2f;
 
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private string isMovingParam = "IsMoving";
+    
+
     [Header("Runtime (Read Only)")]
     [SerializeField] private Vector3 moveDir = Vector3.zero;
     [SerializeField] private bool hasTarget = false;
+    [SerializeField] private bool isMoving = false;
+
+    private void Update()
+    {
+        if (!AcquireTarget())
+        {
+            moveDir = Vector3.zero;
+            return;
+        }
+
+        bool shouldStop = CheckStopDistance();
+        if (shouldStop)
+        {
+            moveDir = Vector3.zero;
+            SetMoving(false);
+        }
+        else
+        {
+           UpdateMoveDirection();
+           SetMoving(moveDir.sqrMagnitude > 0.0001f); 
+        }
+
+
+    }
+    
+    private void FixedUpdate()
+    {
+        ApplyPhysicsMovement(moveDir);
+    }
+
+   
 
     private bool AcquireTarget()
     {
@@ -37,7 +74,7 @@ public sealed class MonsterAI : MonoBehaviour
 
     private void UpdateMoveDirection()
     {
-        if (target == null || target.gameObject.activeInHierarchy)
+        if (target == null || !target.gameObject.activeInHierarchy)
         {
             moveDir = Vector3.zero;
             return;
@@ -47,7 +84,7 @@ public sealed class MonsterAI : MonoBehaviour
 
         dir.y = 0f;
 
-        if (dir.sqrMagnitude > 0.0001f)//이동 멈춤 로직 이 때 공격 넣으면 될 듯
+        if (dir.sqrMagnitude > 0.0001f)
             moveDir = dir.normalized;
         else
             moveDir = Vector3.zero;
@@ -69,11 +106,20 @@ public sealed class MonsterAI : MonoBehaviour
 
     private bool CheckStopDistance()
     {
-        if (target == null || target.gameObject.activeInHierarchy)
+        if (target == null || !target.gameObject.activeInHierarchy)
             return true;
         
-        float dist = Vector3.Distance(transform.position, transform.position);
+        float dist = Vector3.Distance(transform.position, target.position);
 
         return dist <= stopDistance;
+    }
+
+    private void SetMoving(bool moving)
+    {
+        if (isMoving == moving) return;
+        isMoving = moving;
+
+        if (animator && !string.IsNullOrEmpty(isMovingParam))
+            animator.SetBool(isMovingParam, isMoving); 
     }
 }
