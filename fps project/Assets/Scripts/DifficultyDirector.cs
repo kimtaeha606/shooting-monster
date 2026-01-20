@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Rendering;
+
 
 public sealed class DifficultyDirector : MonoBehaviour
 {
@@ -15,31 +15,37 @@ public sealed class DifficultyDirector : MonoBehaviour
 
     [Header("Speed Formula")]
     [Tooltip("speed = baseMoveSpeed + difficulty * speedIncreaseK")]
-    [SerializeField] private float baseMoveSpeed = 3.5f;
+    
     [SerializeField] private float speedIncreaseK = 1.0f;
     
 
     // Runtime (read-only)
-    [SerializeField] private float elapsedTime = 0f;
-    [SerializeField] private float difficulty = 0f;
+    [SerializeField] public float elapsedTime = 0f;
+    [SerializeField] public float difficulty = 0f;
 
     public float currentSpawnInterval;
 
     public float currentMoveSpeed;
 
-    public float ElapsedTime => elapsedTime;
-    public float Difficulty => difficulty;
+    
 
-    private void OnTimeUpdated(float remaining, float max)
+    private void OnEnable()
     {
-        elapsedTime = Mathf.Max(0f, max - remaining);
-        
-        difficulty = EvaluateDifficulty(elapsedTime);
+        GameSignals.SurvivalTimeUpdated += OnElapsedTimeUpdated;
+    }
 
+    private void OnDisable()
+    {
+        GameSignals.SurvivalTimeUpdated -= OnElapsedTimeUpdated;
+    }
+
+    private void OnElapsedTimeUpdated(float elapsed)
+    {
+        elapsedTime = Mathf.Max(0f, elapsed);
+
+        difficulty = EvaluateDifficulty(elapsedTime);
         currentSpawnInterval = ComputeSpawnInterval(difficulty);
         currentMoveSpeed = ComputeSpeed(difficulty);
-
-
     }
 
     public float EvaluateDifficulty(float elapsedTimeSec)
@@ -70,5 +76,8 @@ public sealed class DifficultyDirector : MonoBehaviour
 
         return multiplier;
     }
+
+    
+
 
 }
