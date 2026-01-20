@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using Unity.Android.Gradle;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public sealed class MonsterAI : MonoBehaviour
@@ -10,19 +11,21 @@ public sealed class MonsterAI : MonoBehaviour
 
     [Header("Movement (Physics)")]
     [SerializeField] private Rigidbody rb;          // 3D 기준. 2D면 Rigidbody2D로 교체.
-    [SerializeField] private float moveSpeed = 5f;  // TODO: 적절한 기본값 튜닝
+    
     [SerializeField] private float stopDistance = 1.2f;
 
     [Header("Animation")]
     [SerializeField] private Animator animator;
     [SerializeField] private string isMovingParam = "IsMoving";
     
+    [Header("Ref")]
+    [SerializeField] private MonsterDef def;
 
     [Header("Runtime (Read Only)")]
     [SerializeField] private Vector3 moveDir = Vector3.zero;
     [SerializeField] private bool hasTarget = false;
     [SerializeField] private bool isMoving = false;
-
+    
     private void Update()
     {
         if (!AcquireTarget())
@@ -90,7 +93,7 @@ public sealed class MonsterAI : MonoBehaviour
             moveDir = Vector3.zero;
     }
 
-    private void ApplyPhysicsMovement(Vector3 direction)
+    private void ApplyPhysicsMovement(Vector3 direction, float moveSpeed)
     {
         if(direction == Vector3.zero)
         {

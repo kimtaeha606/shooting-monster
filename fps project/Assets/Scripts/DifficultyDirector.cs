@@ -17,7 +17,7 @@ public sealed class DifficultyDirector : MonoBehaviour
     [Tooltip("speed = baseMoveSpeed + difficulty * speedIncreaseK")]
     [SerializeField] private float baseMoveSpeed = 3.5f;
     [SerializeField] private float speedIncreaseK = 1.0f;
-    [SerializeField] private float maxMoveSpeed = 12.0f;
+    
 
     // Runtime (read-only)
     [SerializeField] private float elapsedTime = 0f;
@@ -66,9 +66,9 @@ public sealed class DifficultyDirector : MonoBehaviour
     {
         float d = Mathf.Max(0f, currentDifficulty);
 
-        float speed = baseMoveSpeed + d * speedIncreaseK;
+        float multiplier = d * speedIncreaseK;
 
-        return speed;
+        return multiplier;
     }
 
 }

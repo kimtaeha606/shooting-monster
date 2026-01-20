@@ -38,6 +38,15 @@ public sealed class MonsterSpawner : MonoBehaviour
             rot = parent.rotation;
         }
 
-        return Instantiate(def.prefab,pos,rot,parent);
+        GameObject monster = Instantiate(
+            def.prefab,
+            pos,
+            rot,
+            spawnRoot
+        );
+        var initiallizer = monster.GetComponent<MonsterInitializer>();
+        initiallizer?.Initialize(def);
+
+        return monster;
     } 
 }
