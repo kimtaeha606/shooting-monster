@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public static class GameSignals
 {
@@ -15,5 +16,6 @@ public static class GameSignals
     {
         GameOver?.Invoke(finalSurvivalTime);
     }
+   
 }
 
