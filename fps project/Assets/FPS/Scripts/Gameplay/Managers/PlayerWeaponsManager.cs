@@ -464,9 +464,11 @@ namespace Unity.FPS.Gameplay
                     weaponInstance.ShowWeapon(false);
 
                     // Assign the first person layer to the weapon
+                    
                     int layerIndex =
-                        Mathf.RoundToInt(Mathf.Log(FpsWeaponLayer.value,
-                            2)); // This function converts a layermask to a layer index
+                        Mathf.RoundToInt(Mathf.Log(FpsWeaponLayer.value,2)); 
+                        // This function converts a layermask to a layer index
+                    
                     foreach (Transform t in weaponInstance.gameObject.GetComponentsInChildren<Transform>(true))
                     {
                         t.gameObject.layer = layerIndex;
