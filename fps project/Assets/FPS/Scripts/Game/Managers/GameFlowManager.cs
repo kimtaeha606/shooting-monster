@@ -41,7 +41,7 @@ namespace Unity.FPS.Game
 
         void Start()
         {
-            AudioUtility.SetMasterVolume(1);
+            //AudioUtility.SetMasterVolume(1);
         }
 
         void Update()
@@ -51,7 +51,7 @@ namespace Unity.FPS.Game
                 float timeRatio = 1 - (m_TimeLoadEndGameScene - Time.time) / EndSceneLoadDelay;
                 EndGameFadeCanvasGroup.alpha = timeRatio;
 
-                AudioUtility.SetMasterVolume(1 - timeRatio);
+                //AudioUtility.SetMasterVolume(1 - timeRatio);
 
                 // See if it's time to load the end scene (after the delay)
                 if (Time.time >= m_TimeLoadEndGameScene)
