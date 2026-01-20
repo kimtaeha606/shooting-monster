@@ -60,6 +60,13 @@ namespace Unity.FPS.Gameplay
         [Header("Misc")] [Tooltip("Speed at which the aiming animatoin is played")]
         public float AimingAnimationSpeed = 10f;
 
+        [Header("Weapon Orientation")]
+        [Tooltip("Additional pitch rotation in degrees applied to the weapon socket")]
+        public float WeaponPitchAngle = 0f;
+
+        [Tooltip("Additional yaw rotation in degrees applied to the weapon socket")]
+        public float WeaponYawAngle = 0f;
+
         [Tooltip("Field of view when not aiming")]
         public float DefaultFov = 60f;
 
@@ -92,6 +99,7 @@ namespace Unity.FPS.Gameplay
         float m_TimeStartedWeaponSwitch;
         WeaponSwitchState m_WeaponSwitchState;
         int m_WeaponSwitchNewWeaponIndex;
+        Quaternion m_WeaponBaseLocalRotation;
 
         void Start()
         {
@@ -109,6 +117,7 @@ namespace Unity.FPS.Gameplay
             SetFov(DefaultFov);
 
             OnSwitchedToWeapon += OnWeaponSwitched;
+            m_WeaponBaseLocalRotation = WeaponParentSocket.localRotation;
 
             // Add starting weapons
             foreach (var weapon in StartingWeapons)
@@ -201,6 +210,8 @@ namespace Unity.FPS.Gameplay
             // Set final weapon socket position based on all the combined animation influences
             WeaponParentSocket.localPosition =
                 m_WeaponMainLocalPosition + m_WeaponBobLocalPosition + m_WeaponRecoilLocalPosition;
+            WeaponParentSocket.localRotation =
+                m_WeaponBaseLocalRotation * Quaternion.Euler(WeaponPitchAngle, WeaponYawAngle, 0f);
         }
 
         // Sets the FOV of the main camera and the weapon camera simultaneously
