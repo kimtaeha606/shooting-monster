@@ -61,7 +61,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 880ae4af8b4a1c443b2d84f2c0796a77,
         type: 3}
       propertyPath: m_Name
-      value: Ch30_nonPBR
+      value: MonsterPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 880ae4af8b4a1c443b2d84f2c0796a77,
         type: 3}
@@ -100,6 +100,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8296787298091404198}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 880ae4af8b4a1c443b2d84f2c0796a77,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4560287942924399614}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 880ae4af8b4a1c443b2d84f2c0796a77,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3374321812992827182}
     - targetCorrespondingSourceObject: {fileID: -9070493210130169274, guid: 880ae4af8b4a1c443b2d84f2c0796a77,
         type: 3}
       insertIndex: -1
@@ -198,7 +206,7 @@ MonoBehaviour:
   stopDistance: 1.2
   animator: {fileID: 8901437204871861723}
   isMovingParam: IsMoving
-  def: {fileID: 0}
+  def: {fileID: 11400000, guid: 2aa1fa4e7735b5745a934224e5f5b276, type: 2}
   moveDir: {x: 0, y: 0, z: 0}
   hasTarget: 0
   isMoving: 0
@@ -243,6 +251,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: fps.Game::Unity.FPS.Game.Destructable
   animator: {fileID: 8901437204871861723}
   destroyDelay: 10
+--- !u!114 &4560287942924399614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2748248562681304347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2295de804a358234d81595fcaee91458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterInitializer
+  stats: {fileID: -3374321812992827182}
+--- !u!114 &-3374321812992827182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2748248562681304347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f083d1e389bf3d24b8d090f8fffb3cc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterStats
 --- !u!1 &2953787597342419468 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -9070493210130169274, guid: 880ae4af8b4a1c443b2d84f2c0796a77,
