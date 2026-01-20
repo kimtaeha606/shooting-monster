@@ -11,7 +11,7 @@ public sealed class MonsterSpawner : MonoBehaviour
     [Header("Parent (optional)")]
     [SerializeField] private Transform spawnRoot;
 
-    public GameObject Spawn()
+    public GameObject Spawn(MonsterDef def)
     {
         if (monsterPrefab == null)
         {
@@ -38,6 +38,6 @@ public sealed class MonsterSpawner : MonoBehaviour
             rot = parent.rotation;
         }
 
-        return Instantiate(monsterPrefab,pos,rot,parent);
+        return Instantiate(def.prefab,pos,rot,parent);
     } 
 }
