@@ -96,6 +96,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3606775997108475976}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 880ae4af8b4a1c443b2d84f2c0796a77,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8296787298091404198}
     - targetCorrespondingSourceObject: {fileID: -9070493210130169274, guid: 880ae4af8b4a1c443b2d84f2c0796a77,
         type: 3}
       insertIndex: -1
@@ -191,10 +195,10 @@ MonoBehaviour:
   playerTag: Player
   target: {fileID: 0}
   rb: {fileID: 3606775997108475976}
-  moveSpeed: 5
   stopDistance: 1.2
   animator: {fileID: 8901437204871861723}
   isMovingParam: IsMoving
+  def: {fileID: 0}
   moveDir: {x: 0, y: 0, z: 0}
   hasTarget: 0
   isMoving: 0
@@ -225,6 +229,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8296787298091404198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2748248562681304347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f0914267284bd7468f8ac89253e1557, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: fps.Game::Unity.FPS.Game.Destructable
+  animator: {fileID: 8901437204871861723}
+  destroyDelay: 10
 --- !u!1 &2953787597342419468 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -9070493210130169274, guid: 880ae4af8b4a1c443b2d84f2c0796a77,

@@ -1,29 +1,62 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
+using System.Collections;
 
 namespace Unity.FPS.Game
 {
     public class Destructable : MonoBehaviour
     {
-        Health m_Health;
+        [SerializeField] private Animator animator;
+        [SerializeField] private float destroyDelay = 10f;
 
-        void Start()
+        private Coroutine deathCo;
+        private Health m_Health;
+        private bool isDead;
+
+        private void Awake()
         {
             m_Health = GetComponent<Health>();
             DebugUtility.HandleErrorIfNullGetComponent<Health, Destructable>(m_Health, this, gameObject);
 
-            // Subscribe to damage & death actions
+            if (!animator) animator = GetComponentInChildren<Animator>();
+        }
+
+        private void OnEnable()
+        {
+            if (!m_Health) return;
             m_Health.OnDie += OnDie;
             m_Health.OnDamaged += OnDamaged;
         }
 
-        void OnDamaged(float damage, GameObject damageSource)
+        private void OnDisable()
+        {
+            if (m_Health == null) return;
+            m_Health.OnDie -= OnDie;
+            m_Health.OnDamaged -= OnDamaged;
+
+            if (deathCo != null) StopCoroutine(deathCo);
+            deathCo = null;
+        }
+
+        private void OnDamaged(float damage, GameObject damageSource)
         {
             // TODO: damage reaction
         }
 
-        void OnDie()
+        private void OnDie()
         {
-            // this will call the OnDestroy function
+            if (isDead) return;
+            isDead = true;
+
+            if (animator) animator.SetBool("IsDead", true);
+
+            // 즉시 파괴하지 말고, 지연 후 파괴
+            if (deathCo != null) StopCoroutine(deathCo);
+            deathCo = StartCoroutine(CoDestroyAfter(destroyDelay));
+        }
+
+        private IEnumerator CoDestroyAfter(float sec)
+        {
+            yield return new WaitForSeconds(sec);
             Destroy(gameObject);
         }
     }
