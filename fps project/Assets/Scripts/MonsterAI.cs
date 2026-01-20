@@ -51,7 +51,7 @@ public sealed class MonsterAI : MonoBehaviour
     
     private void FixedUpdate()
     {
-        ApplyPhysicsMovement(moveDir);
+        //ApplyPhysicsMovement(moveDir);
     }
 
    
