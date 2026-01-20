@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b71ab4b7e4ae2fd4ea1cba125461b574, type: 3}
   m_Name: MonsterDef_
   m_EditorClassIdentifier: Assembly-CSharp::MonsterDef
-  monsterId: 
-  displayName: 
-  maxHp: 0
-  moveSpeed: 0
-  damage: 0
+  monsterId: ddong
+  displayName: "\"\uB625\""
+  prefab: {fileID: 0}
+  maxHp: 100
+  moveSpeed: 7
+  damage: 20
