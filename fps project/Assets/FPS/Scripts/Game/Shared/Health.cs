@@ -28,6 +28,7 @@ namespace Unity.FPS.Game
             CurrentHealth = MaxHealth;
         }
 
+
         public void Heal(float healAmount)
         {
             float healthBefore = CurrentHealth;
@@ -56,6 +57,7 @@ namespace Unity.FPS.Game
             if (trueDamageAmount > 0f)
             {
                 OnDamaged?.Invoke(trueDamageAmount, damageSource);
+                Debug.Log("데미지 받음");
             }
 
             HandleDeath();
@@ -81,6 +83,7 @@ namespace Unity.FPS.Game
             {
                 m_IsDead = true;
                 OnDie?.Invoke();
+                Debug.Log("죽음");
             }
         }
     }
