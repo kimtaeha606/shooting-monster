@@ -34,6 +34,9 @@ namespace Unity.FPS.Gameplay
         [Tooltip("Position for innactive weapons")]
         public Transform DownWeaponPosition;
 
+        //[Tooltip("SFX controller to bind weapon events to")]
+        //[SerializeField] private SfxController sfxController;
+
         [Header("Weapon Bob")]
         [Tooltip("Frequency at which the weapon will move around in the screen when the player is in movement")]
         public float BobFrequency = 10f;
@@ -566,6 +569,11 @@ namespace Unity.FPS.Gameplay
             {
                 newWeapon.ShowWeapon(true);
             }
+
+            //if (sfxController != null)
+            //{
+                //sfxController.BindWeapon(newWeapon);
+            //}
         }
     }
 }
