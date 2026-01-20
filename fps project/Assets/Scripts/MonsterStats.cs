@@ -6,11 +6,11 @@ public class MonsterStats : MonoBehaviour
     public float MoveSpeed { get; private set; }
     public float Damage { get; private set; }
 
-    public void InitFromDef(MonsterDef def)
+    public void InitFromDef(float hp, float damage, float moveSpeed)
     {
-        CurrentHp = def.maxHp;
-        MoveSpeed = def.moveSpeed;
-        Damage = def.damage;
+        CurrentHp = hp;
+        MoveSpeed = moveSpeed;
+        Damage = damage;
     }
 
     public void ApplySpeedMultiplier(float multiplier)
