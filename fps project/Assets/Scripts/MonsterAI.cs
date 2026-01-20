@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using Unity.Android.Gradle;
+using Unity.FPS.Game;
 using UnityEditor.VersionControl;
 using UnityEngine;
 
@@ -20,6 +21,8 @@ public sealed class MonsterAI : MonoBehaviour
     
     [Header("Ref")]
     [SerializeField] private MonsterDef def;
+    [SerializeField] private MonsterAttack attack;
+    [SerializeField] private Collider attackCollider;
 
     [Header("Runtime (Read Only)")]
     [SerializeField] private Vector3 moveDir = Vector3.zero;
@@ -116,12 +119,12 @@ public sealed class MonsterAI : MonoBehaviour
     {
         if(direction == Vector3.zero)
         {
-            rb.linearVelocity = new Vector3(0f,rb.linearVelocity.y,0f);
+            rb.linearVelocity = new Vector3(0f,0f,0f);
             return;
         }
 
         Vector3 velocity = direction * moveSpeed;
-        velocity.y = rb.linearVelocity.y;
+        velocity.y = 0f;
 
         rb.linearVelocity = velocity;
     }
@@ -146,5 +149,14 @@ public sealed class MonsterAI : MonoBehaviour
     }
 
     public void SetAttacking(bool v) => isAttacking = v;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!attackCollider.enabled) return;
+
+        var dmg = other.GetComponent<Damageable>();
+        if (dmg)
+            attack.TryHit(dmg);
+    }
 
 }
