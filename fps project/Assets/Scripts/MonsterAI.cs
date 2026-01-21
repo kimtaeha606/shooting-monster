@@ -41,6 +41,8 @@ public sealed class MonsterAI : MonoBehaviour
             return;
         }
 
+        transform.LookAt(target);
+
         bool inRange = CheckStopDistance();
 
         // 이동 bool은 매 프레임 갱신 (권장) 
