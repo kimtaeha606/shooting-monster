@@ -32,8 +32,11 @@ namespace Unity.FPS.Game
             source.spatialBlend = spatialBlend;
             source.minDistance = rolloffDistanceMin;
             source.Play();
-
-            source.outputAudioMixerGroup = GetAudioGroup(audioGroup);
+            var group = GetAudioGroup(audioGroup);
+            if (group != null)
+            {
+                source.outputAudioMixerGroup = group;
+            }
 
             TimedSelfDestruct timedSelfDestruct = impactSfxInstance.AddComponent<TimedSelfDestruct>();
             timedSelfDestruct.LifeTime = clip.length;
@@ -43,6 +46,10 @@ namespace Unity.FPS.Game
         {
             if (s_AudioManager == null)
                 s_AudioManager = Object.FindFirstObjectByType<AudioManager>();
+            if (s_AudioManager == null)
+            {
+                return null;
+            }
 
             var groups = s_AudioManager.FindMatchingGroups(group.ToString());
 
