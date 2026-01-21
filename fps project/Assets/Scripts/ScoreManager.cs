@@ -61,6 +61,12 @@ public class ScoreManager : MonoBehaviour
         SceneManager.LoadScene("LoseScene");
     }
 
+    private void Start()
+    {
+        InitTimer();
+        StartTimer();
+    }
+
     private void Update()
     {
         UpdateTimer();
