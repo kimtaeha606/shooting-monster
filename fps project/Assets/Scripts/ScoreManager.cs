@@ -44,7 +44,7 @@ public class ScoreManager : MonoBehaviour
         return survivalTime;
     }
 
-    public void OnGameOver()
+    public void OnGameOver(float fianlTime)
     {
 
         if (isGameOver == true)
@@ -54,9 +54,9 @@ public class ScoreManager : MonoBehaviour
         
         StopTimer();
         
-        RunResult.LastSurvivalTime = survivalTime;
+        RunResult.LastSurvivalTime = fianlTime;
 
-        GameSignals.RaiseGameOver(survivalTime);
+        GameSignals.RaiseGameOver(RunResult.LastSurvivalTime);
 
         SceneManager.LoadScene("LoseScene");
     }

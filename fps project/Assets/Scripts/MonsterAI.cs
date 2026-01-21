@@ -23,6 +23,7 @@ public sealed class MonsterAI : MonoBehaviour
     [SerializeField] private MonsterDef def;
     [SerializeField] private MonsterAttack attack;
     [SerializeField] private Collider attackCollider;
+    [SerializeField] private MonsterStats stats;
 
     [Header("Runtime (Read Only)")]
     [SerializeField] private Vector3 moveDir = Vector3.zero;
@@ -72,7 +73,7 @@ public sealed class MonsterAI : MonoBehaviour
     
     private void FixedUpdate()
     {
-        float moveSpeed = def != null ? def.moveSpeed : 0f;
+        float moveSpeed = stats != null ? stats.MoveSpeed : 0f;
         ApplyPhysicsMovement(moveDir, moveSpeed);
     }
 

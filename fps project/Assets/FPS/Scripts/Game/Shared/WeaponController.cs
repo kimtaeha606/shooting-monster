@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -183,17 +183,17 @@ namespace Unity.FPS.Game
                 m_ContinuousShootAudioSource.loop = true;
             }
 
-            // if (HasPhysicalBullets)
-            // {
-            //     m_PhysicalAmmoPool = new Queue<Rigidbody>(ShellPoolSize);
+            if (HasPhysicalBullets)
+            {
+                m_PhysicalAmmoPool = new Queue<Rigidbody>(ShellPoolSize);
 
-            //     for (int i = 0; i < ShellPoolSize; i++)
-            //     {
-            //         GameObject shell = Instantiate(ShellCasing, transform);
-            //         shell.SetActive(false);
-            //         m_PhysicalAmmoPool.Enqueue(shell.GetComponent<Rigidbody>());
-            //     }
-            // }
+                for (int i = 0; i < ShellPoolSize; i++)
+                {
+                    GameObject shell = Instantiate(ShellCasing, transform);
+                    shell.SetActive(false);
+                    m_PhysicalAmmoPool.Enqueue(shell.GetComponent<Rigidbody>());
+                }
+            }
         }
 
         public void AddCarriablePhysicalBullets(int count) => m_CarriedPhysicalBullets = Mathf.Max(m_CarriedPhysicalBullets + count, MaxAmmo);
