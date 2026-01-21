@@ -183,23 +183,36 @@ namespace Unity.FPS.Game
                 m_ContinuousShootAudioSource.loop = true;
             }
 
-            // if (HasPhysicalBullets)
-            // {
-            //     m_PhysicalAmmoPool = new Queue<Rigidbody>(ShellPoolSize);
+            if (HasPhysicalBullets)
+            {
+                if (ShellCasing == null || EjectionPort == null)
+                {
+                    HasPhysicalBullets = false;
+                    Debug.LogWarning("Physical bullets are enabled but ShellCasing/EjectionPort is not set.", this);
+                }
+                else
+                {
+                    m_PhysicalAmmoPool = new Queue<Rigidbody>(ShellPoolSize);
 
-            //     for (int i = 0; i < ShellPoolSize; i++)
-            //     {
-            //         GameObject shell = Instantiate(ShellCasing, transform);
-            //         shell.SetActive(false);
-            //         m_PhysicalAmmoPool.Enqueue(shell.GetComponent<Rigidbody>());
-            //     }
-            // }
+                    for (int i = 0; i < ShellPoolSize; i++)
+                    {
+                        GameObject shell = Instantiate(ShellCasing, transform);
+                        shell.SetActive(false);
+                        m_PhysicalAmmoPool.Enqueue(shell.GetComponent<Rigidbody>());
+                    }
+                }
+            }
         }
 
         public void AddCarriablePhysicalBullets(int count) => m_CarriedPhysicalBullets = Mathf.Max(m_CarriedPhysicalBullets + count, MaxAmmo);
 
         void ShootShell()
         {
+            if (m_PhysicalAmmoPool == null || m_PhysicalAmmoPool.Count == 0)
+            {
+                return;
+            }
+
             Rigidbody nextShell = m_PhysicalAmmoPool.Dequeue();
 
             nextShell.transform.position = EjectionPort.transform.position;
@@ -477,7 +490,7 @@ namespace Unity.FPS.Game
             // play shoot SFX
             if (ShootSfx && !UseContinuousShootSound)
             {
-                m_ShootAudioSource.PlayOneShot(ShootSfx);
+                PlaySFX(ShootSfx);
             }
 
             // Trigger attack animation if there is any

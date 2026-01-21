@@ -47,7 +47,7 @@ namespace Unity.FPS.Game
             if (isDead) return;
             isDead = true;
 
-            if (animator) animator.SetBool("IsDead", true);
+            if (animator) animator.SetTrigger("Dead");
 
             // 즉시 파괴하지 말고, 지연 후 파괴
             if (deathCo != null) StopCoroutine(deathCo);
